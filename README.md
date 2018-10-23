@@ -16,3 +16,4 @@ $ pip3 install urllib2
 <pre>$ python3 cocokloggy.py</pre>
 Screenshoot :
 ![Screenshoot](https://raw.githubusercontent.com/jonitampan/cocokloggy/master/cocokloggy1.png)
+![Screenshoot](https://raw.githubusercontent.com/jonitampan/cocokloggy/master/cocokloggy3.JPG)
