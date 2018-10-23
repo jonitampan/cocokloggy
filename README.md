@@ -13,4 +13,4 @@ $ pip3 install apscheduler
 $ pip3 install urllib2
 </pre>
 ### Running script
-<pre>$ ./python3 cocokloggy.py</pre>
+<pre>$ python3 cocokloggy.py</pre>
