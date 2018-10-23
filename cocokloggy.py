@@ -40,7 +40,7 @@ def search_es(rules_name,query):
                 res_dict = response.to_dict()
                 for aggdata in res_dict['aggregations']:
                         for haggdata in res_dict['aggregations'][aggdata]:
-                                if(h=="buckets"):
+                                if(haggdata=="buckets"):
                                         for data_res in res_dict['aggregations'][aggdata][haggdata]:
                                                 text_body += str(data_res['key'])+ " : " + str(data_res['doc_count']) + "\n"              
                 if text_body!="":
