@@ -10,7 +10,6 @@ Working with elasticsearch and python to create simple sets alert and notificati
 $ pip3 install elasticsearch
 $ pip3 install elasticsearch-dsl
 $ pip3 install apscheduler
-$ pip3 install urllib2
 </pre>
 ### Running script
 <pre>$ python3 cocokloggy.py</pre>
