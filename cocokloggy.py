@@ -3,6 +3,8 @@ from elasticsearch_dsl import Search
 import json
 import urllib.request, urllib.parse
 
+import smtplib
+
 import configparser
 import os
 import time
@@ -23,6 +25,30 @@ cP = configparser.ConfigParser()
 configFilePath = os.path.join(os.path.dirname(__file__), 'rules.conf')
 cP.read(configFilePath)
 
+def email_notification(to,subject,body_email):
+        TO = to
+        SUBJECT = subject
+        TEXT = body_email
+
+        gmail_sender = 'email_to@gmail.com'
+        gmail_passwd = 'passwd'
+
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.ehlo()
+        server.starttls()
+        server.login(gmail_sender, gmail_passwd)
+
+        BODY = '\r\n'.join(['To: %s' % TO,
+                    'From: %s' % gmail_sender,
+                    'Subject: %s' % SUBJECT,
+                    '', TEXT])
+
+        try:
+            server.sendmail(gmail_sender, [TO], BODY)
+            print ('email sent to '+TO)
+        except:
+            print ('error sending mail'+TO)
+        server.quit()
 
 def telegram_notification(command,token_bot,param):
         url="https://api.telegram.org/bot"+token_bot+"/"
@@ -62,8 +88,8 @@ def initiate_job(each_section,schedule,query):
                         print("==========================================================")
                         if text_notification!="":
                                 data_param = {'chat_id' : 'XXXXXXX', 'text' : text_notification}
-                                telegram_notification("sendMessage",token_bot,data_param);
-
+                                telegram_notification("sendMessage",token_bot,data_param)
+                                email_notification("email_to@gmail.com","Alert : "+each_section,text_notification)
         except:
                 logging.error('Error adding job')
 
