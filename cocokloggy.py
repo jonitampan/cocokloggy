@@ -64,13 +64,19 @@ def search_es(rules_name,query):
                 s = s.using(client).index('*')
                 response = s.execute()
                 res_dict = response.to_dict()
+                res_d = str(res_dict['hits']['hits'])
+                res_e = res_d.replace('}','')
+                res_f = res_e.replace('{','')
+                res_g = res_f.replace('\\n','\n')
+                res_h = res_g.replace(',','\n')
+                res_i = limiter(res_h,1500)
                 for aggdata in res_dict['aggregations']:
                         for haggdata in res_dict['aggregations'][aggdata]:
                                 if(haggdata=="buckets"):
                                         for data_res in res_dict['aggregations'][aggdata][haggdata]:
                                                 text_body += str(data_res['key'])+ " : " + str(data_res['doc_count']) + "\n"              
                 if text_body!="":
-                        return text_header+text_body
+                        return text_header+text_body+"\n"+res_i
         except:
                 logging.error('Error search Elasticsearch')
                 return ""
